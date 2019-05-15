@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>qzc-base-service</artifactId>
+  <packaging>jar</packaging>
+  <version>1.1.0-SNAPSHOT</version>
+  <name>qzc-base-service</name>
+
+  <parent>
+    <groupId>com.qzc</groupId>
+    <artifactId>qzc-starter-parent</artifactId>
+    <version>1.1.0-SNAPSHOT</version>
+  </parent>
+
+  <!-- =======================================依赖======================================= -->
+  <dependencies>
+
+    <!-- web starter -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- jdbc starter -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-jdbc</artifactId>
+    </dependency>
+
+    <!-- jpa starter -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+
+    <!-- validation starter -->
+    <!--<dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>-->
+
+    <!-- jwt -->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt</artifactId>
+      <version>${jjwt.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.auth0</groupId>
+      <artifactId>java-jwt</artifactId>
+      <version>${java-jwt.version}</version>
+    </dependency>
+
+    <!-- 腾讯云短信服务 -->
+    <dependency>
+      <groupId>com.github.qcloudsms</groupId>
+      <artifactId>qcloudsms</artifactId>
+      <version>${qcloudsms.version}</version>
+    </dependency>
+  </dependencies>
+</project>

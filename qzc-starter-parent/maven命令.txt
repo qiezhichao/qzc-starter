@@ -1,0 +1,8 @@
+命令行创建普通java项目
+mvn archetype:generate -DgroupId=com.qzc -DartifactId=qzc-base-service -DarchetypeArtifactId=maven-archetype-quickstart
+
+命令行创建javaWeb项目
+mvn archetype:generate -DgroupId=com.qzc -DartifactId=qzc-base-service -DarchetypeArtifactId=maven-archetype-webapp
+
+maven打包跳过测试
+-Dmaven.test.skip=true

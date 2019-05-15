@@ -1,0 +1,116 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.qzc</groupId>
+  <artifactId>qzc-starter-parent</artifactId>
+  <packaging>pom</packaging>
+  <version>1.1.0-SNAPSHOT</version>
+  <name>qzc-starter-parent</name>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.5.20.RELEASE</version>
+  </parent>
+
+  <properties>
+    <!-- 通用配置 -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>1.8</java.version>
+
+    <!-- 必选依赖 -->
+    <guava.version>19.0</guava.version>
+    <commons-lang3.version>3.4</commons-lang3.version>
+    <commons-collections4.version>4.1</commons-collections4.version>
+    <fastjson.version>1.2.47</fastjson.version>
+
+    <!-- 可选选依赖 -->
+    <swagger.version>2.5.0</swagger.version>
+    <druid.version>1.1.0</druid.version>
+    <qcloudsms.version>1.0.6</qcloudsms.version>
+    <jjwt.version>0.9.1</jjwt.version>
+    <java-jwt.version>3.4.0</java-jwt.version>
+  </properties>
+
+  <!-- =======================================必选依赖======================================= -->
+  <dependencies>
+    <!-- guava -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava.version}</version>
+    </dependency>
+
+    <!-- lombok -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+
+    <!-- apache通用依赖 -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${commons-lang3.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
+      <version>${commons-collections4.version}</version>
+    </dependency>
+
+    <!-- fastjson -->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>${fastjson.version}</version>
+    </dependency>
+  </dependencies>
+
+  <!-- =======================================可选依赖======================================= -->
+  <dependencyManagement>
+    <dependencies>
+
+      <!-- 数据源 druid -->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid</artifactId>
+        <version>${druid.version}</version>
+      </dependency>
+
+      <!-- swagger -->
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>${swagger.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger-ui</artifactId>
+        <version>${swagger.version}</version>
+      </dependency>
+
+      <!-- 腾讯云短信服务 -->
+      <dependency>
+        <groupId>com.github.qcloudsms</groupId>
+        <artifactId>qcloudsms</artifactId>
+        <version>${qcloudsms.version}</version>
+      </dependency>
+
+      <!-- jwt -->
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt</artifactId>
+        <version>${jjwt.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.auth0</groupId>
+        <artifactId>java-jwt</artifactId>
+        <version>${java-jwt.version}</version>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+</project>
