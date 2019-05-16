@@ -36,7 +36,11 @@ public class LogAspect {
             Class<?> clazz = method.getDeclaringClass();
 
             StringBuilder sb = new StringBuilder();
-            sb.append("begin method ").append(clazz.getSimpleName()).append(".").append(method.getName()).append("(");
+            sb.append("begin method ")
+                    .append(clazz.getSimpleName())
+                    .append(".")
+                    .append(method.getName())
+                    .append("(");
             if (parameters != null && parameters.length > 0) {
                 for (int i = 0; i < parameters.length; i++) {
                     sb.append(parameters[i].getName());

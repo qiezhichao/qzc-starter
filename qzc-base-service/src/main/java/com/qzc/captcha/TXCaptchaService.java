@@ -48,7 +48,10 @@ public class TXCaptchaService {
         HttpGet httpGet;
         CloseableHttpResponse response = null;
         try {
-            httpGet = new HttpGet(String.format(txCaptchaConfig.getVerifyUri(),
+            String verifyUri = txCaptchaConfig.getVerifyUri();
+            verifyUri = verifyUri + "?aid=%s&AppSecretKey=%s&Ticket=%s&Randstr=%s&UserIP=%s";
+
+            httpGet = new HttpGet(String.format(verifyUri,
                     txCaptchaConfig.getAppId(),
                     txCaptchaConfig.getAppSecretKey(),
                     URLEncoder.encode(ticket, "UTF-8"),

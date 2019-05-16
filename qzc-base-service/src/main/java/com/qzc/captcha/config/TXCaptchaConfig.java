@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TXCaptchaConfig {
 
-    @Value("${tx.captcha.appid:#{null}}")
+    @Value("${tx.captcha.appId:#{null}}")
     private String appId;
 
     @Value("${tx.captcha.appSecretKey:#{null}}")
