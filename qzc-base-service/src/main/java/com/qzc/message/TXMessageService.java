@@ -32,14 +32,14 @@ public class TXMessageService {
                 phoneNum, verificationCode);
 
         if (!txMessageConfig.check()) {
-            log.error("腾讯云短信对象校验失败");
-            throw new ServiceException("腾讯云短信对象校验失败");
+            log.error("腾讯云短信配置校验失败");
+            throw new ServiceException("腾讯云短信配置校验失败");
         }
 
         SmsSingleSenderResult result = null;
         try {
             String[] params = {verificationCode};
-            SmsSingleSender ssender = new SmsSingleSender(Integer.parseInt(txMessageConfig.getAppid()), txMessageConfig.getAppkey());
+            SmsSingleSender ssender = new SmsSingleSender(Integer.parseInt(txMessageConfig.getAppId()), txMessageConfig.getAppKey());
             result = ssender.sendWithParam(txMessageConfig.getNationCode(),
                     phoneNum,
                     Integer.parseInt(txMessageConfig.getTemplateId()),
