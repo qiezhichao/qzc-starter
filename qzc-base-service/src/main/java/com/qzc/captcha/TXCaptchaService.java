@@ -68,6 +68,8 @@ public class TXCaptchaService {
                 // 返回码
                 int code = result.getInteger("response");
                 txCaptchaBean.setResponse(code);
+                txCaptchaBean.setIsVerifySuccess(code == 1);
+
                 // 恶意等级
                 int evilLevel = result.getInteger("evil_level");
                 txCaptchaBean.setEvilLevel(evilLevel);

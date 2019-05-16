@@ -17,4 +17,7 @@ public class TXCaptchaBean {
 
     // 错误信息
     private String errMsg;
+
+    // 是否验证成功
+    private Boolean isVerifySuccess;
 }
