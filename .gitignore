@@ -2,7 +2,8 @@
 *.idea
 *.jar
 *.class
-
 Desktop.ini
-
 target
+.classpath
+.settings/
+.project
