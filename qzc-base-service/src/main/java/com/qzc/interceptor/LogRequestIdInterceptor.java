@@ -24,6 +24,7 @@ public class LogRequestIdInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String requestId = UUID.randomUUID().toString().replaceAll("-", "");
         MDC.put("requestId", requestId);
+        request.setAttribute("requestId", requestId);
 
         return true;
     }
