@@ -161,13 +161,20 @@ public class BaseJpaDAO {
             query.setParameter(i + 1, valueList.get(i));
         }
 
-        // 分页
-        query.setFirstResult((pager.getPageNum() - 1) * pager.getPageSize());
-        query.setMaxResults(pager.getPageSize());
+        if (pager != null){
+            // 分页
+            query.setFirstResult((pager.getPageNum() - 1) * pager.getPageSize());
+            query.setMaxResults(pager.getPageSize());
+        }
 
         return query.getResultList();
     }
 
+    /**
+     *  根据属性名称和属性值统计记录数
+     * @Author:         qiezhichao
+     * @CreateDate:     2019/5/17 22:14
+     */
     public <T> Long countByFieldValues(Class<T> clazz, Map<String, Object> fieldValueMap) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT COUNT(*) FROM ").append(clazz.getName());

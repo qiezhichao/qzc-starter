@@ -79,6 +79,10 @@ public class BaseJpaService {
         return resultPageList;
     }
 
+    public <T> List<T> findSortByFieldValues(Class<T> clazz, Map<String, Object> fieldValueMap, Sorter sorter) {
+        return baseJpaDAO.findPagerByFieldValues(clazz, fieldValueMap, null, sorter);
+    }
+
     // ========================================================================================
 
     public <T> T getByFieldValue(Class<T> clazz, String fieldName, Serializable fieldValue) {
@@ -100,9 +104,14 @@ public class BaseJpaService {
         return CollectionUtils.isEmpty(resultList) ? null : resultList.get(0);
     }
 
-
     public <T> PageResult<T> findPagerByFieldValues(Class<T> clazz, Map<String, Object> fieldValueMap, Pager pager) {
         Sorter sorter = new Sorter("id", Sort.Direction.DESC);
         return this.findPagerByFieldValues(clazz, fieldValueMap, pager, sorter);
+    }
+
+    public <T> T getFirstSortByFieldValues(Class<T> clazz, Map<String, Object> fieldValueMap, Sorter sorter) {
+        List<T> resultList = this.findSortByFieldValues(clazz, fieldValueMap, sorter);
+
+        return CollectionUtils.isEmpty(resultList) ? null : resultList.get(0);
     }
 }
