@@ -135,9 +135,9 @@ public class BaseJpaDAO {
      */
     @SuppressWarnings("unchecked")
     public <T> List<T> findInByFieldValues(Class<T> clazz, String fieldName, List fieldValueList) {
-        String sql = "FROM " + clazz.getName() + " WHERE " + fieldName + " IN ? ";
+        String sql = "FROM " + clazz.getName() + " WHERE " + fieldName + " IN (:values) ";
         Query query = entityManager.createQuery(sql);
-        query.setParameter(1, fieldValueList);
+        query.setParameter("values", fieldValueList);
         return query.getResultList();
     }
 
@@ -161,7 +161,7 @@ public class BaseJpaDAO {
             query.setParameter(i + 1, valueList.get(i));
         }
 
-        if (pager != null){
+        if (pager != null) {
             // 分页
             query.setFirstResult((pager.getPageNum() - 1) * pager.getPageSize());
             query.setMaxResults(pager.getPageSize());
@@ -171,9 +171,10 @@ public class BaseJpaDAO {
     }
 
     /**
-     *  根据属性名称和属性值统计记录数
-     * @Author:         qiezhichao
-     * @CreateDate:     2019/5/17 22:14
+     * 根据属性名称和属性值统计记录数
+     *
+     * @Author: qiezhichao
+     * @CreateDate: 2019/5/17 22:14
      */
     public <T> Long countByFieldValues(Class<T> clazz, Map<String, Object> fieldValueMap) {
         StringBuilder sql = new StringBuilder();

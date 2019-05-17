@@ -47,8 +47,8 @@ public class LogAspect {
                     if (i != parameters.length - 1) {
                         sb.append(", ");
                     }
-                    sb.append(")");
                 }
+                sb.append(")");
             }
             log.debug(sb.toString());
         } catch (Exception e) {
