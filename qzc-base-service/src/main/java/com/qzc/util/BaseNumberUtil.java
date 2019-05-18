@@ -29,6 +29,14 @@ public class BaseNumberUtil {
             double value = number / 10000.0;
 
             return String.format("%.2f", value) + UNIT_10000;
+        } else if (number < -100000000) {
+            double value = number / 100000000.0;
+
+            return String.format("%.2f", value) + UNIT_100000000;
+        } else if (number < -10000) {
+            double value = number / 10000.0;
+
+            return String.format("%.2f", value) + UNIT_10000;
         } else {
             return String.valueOf(number);
         }
