@@ -114,4 +114,8 @@ public class BaseJpaService {
 
         return CollectionUtils.isEmpty(resultList) ? null : resultList.get(0);
     }
+
+    public <T> List<T> findSortAll(Class<T> clazz, Sorter sorter) {
+        return this.findSortByFieldValues(clazz, null, sorter);
+    }
 }

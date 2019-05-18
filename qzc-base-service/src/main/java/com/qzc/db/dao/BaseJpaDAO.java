@@ -153,10 +153,10 @@ public class BaseJpaDAO {
         sql.append("FROM ").append(clazz.getName());
 
         List<Object> valueList = Lists.newArrayList();
-
         this.buildSQLAndParameters(sql, valueList, fieldValueMap, sorter);
 
         Query query = entityManager.createQuery(sql.toString());
+
         for (int i = 0; i < valueList.size(); i++) {
             query.setParameter(i + 1, valueList.get(i));
         }
@@ -179,11 +179,12 @@ public class BaseJpaDAO {
     public <T> Long countByFieldValues(Class<T> clazz, Map<String, Object> fieldValueMap) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT COUNT(*) FROM ").append(clazz.getName());
-        List<Object> valueList = Lists.newArrayList();
 
+        List<Object> valueList = Lists.newArrayList();
         this.buildSQLAndParameters(sql, valueList, fieldValueMap, null);
 
         Query query = entityManager.createQuery(sql.toString());
+
         for (int i = 0; i < valueList.size(); i++) {
             query.setParameter(i + 1, valueList.get(i));
         }
@@ -215,7 +216,7 @@ public class BaseJpaDAO {
 
         if (sorter != null) {
             // 排序
-            sql.append("ORDER BY ").append(sorter.getOrderField()).append(" ").append(sorter.getDirection().toString());
+            sql.append(" ORDER BY ").append(sorter.getOrderField()).append(" ").append(sorter.getDirection().toString());
         }
     }
 
