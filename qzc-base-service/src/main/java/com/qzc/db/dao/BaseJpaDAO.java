@@ -142,6 +142,20 @@ public class BaseJpaDAO {
     }
 
     /**
+     * 根据属性名称和属性值查询对象列表
+     *
+     * @Author: qiezhichao
+     * @CreateDate: 2019/5/14 23:30
+     */
+    @SuppressWarnings("unchecked")
+    public <T> List<T> findLikeByFieldValue(Class<T> clazz, String fieldName, Serializable fieldValue) {
+        String sql = "FROM " + clazz.getName() + " WHERE " + fieldName + " LIKE ? ";
+        Query query = entityManager.createQuery(sql);
+        query.setParameter(1, "%" + fieldValue + "%");
+        return query.getResultList();
+    }
+
+    /**
      * 根据属性名称和属性值分页查询对象列表
      *
      * @Author: qiezhichao
@@ -191,6 +205,7 @@ public class BaseJpaDAO {
 
         return Long.parseLong(query.getSingleResult().toString());
     }
+
 
     //=========================================================================
     private void buildSQLAndParameters(StringBuilder sql,

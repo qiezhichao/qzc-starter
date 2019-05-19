@@ -1,5 +1,6 @@
 package com.qzc.db.service;
 
+import com.google.common.collect.Maps;
 import com.qzc.db.dao.BaseJpaDAO;
 import com.qzc.pojo.PageResult;
 import com.qzc.pojo.Pager;
@@ -66,6 +67,10 @@ public class BaseJpaService {
         return baseJpaDAO.findInByFieldValues(clazz, fieldName, fieldValueList);
     }
 
+    public <T> List<T> findLikeByFieldValue(Class<T> clazz, String fieldName, Serializable fieldValue) {
+        return baseJpaDAO.findLikeByFieldValue(clazz, fieldName, fieldValue);
+    }
+
     public <T> PageResult<T> findPagerByFieldValues(Class<T> clazz, Map<String, Object> fieldValueMap, Pager pager, Sorter sorter) {
         List<T> resultList = baseJpaDAO.findPagerByFieldValues(clazz, fieldValueMap, pager, sorter);
         PageResult<T> resultPageList = new PageResult<>();
@@ -117,5 +122,16 @@ public class BaseJpaService {
 
     public <T> List<T> findSortAll(Class<T> clazz, Sorter sorter) {
         return this.findSortByFieldValues(clazz, null, sorter);
+    }
+
+    public <T> T getByName(Class<T> clazz, Serializable name) {
+        return this.getByFieldValue(clazz, "name", name);
+    }
+
+    public <T> List<T> findSortByFieldValue(Class<T> clazz, String fieldName, Serializable fieldValue, Sorter sorter) {
+        Map<String, Object> fieldValueMap = Maps.newHashMap();
+        fieldValueMap.put(fieldName, fieldValue);
+
+        return this.findSortByFieldValues(clazz, fieldValueMap, sorter);
     }
 }
