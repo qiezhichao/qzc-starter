@@ -47,6 +47,16 @@ public class BaseJpaService {
         baseJpaDAO.delete(entity);
     }
 
+    @Transactional
+    public <T> void deleteBatch(Class<T> clazz, String fieldName, Serializable fieldValue) {
+        baseJpaDAO.deleteByFieldValue(clazz, fieldName, fieldValue);
+    }
+
+    @Transactional
+    public <T> void deleteBatch(Class<T> clazz, Map<String, Object> fieldValueMap) {
+        baseJpaDAO.deleteByFieldValueMap(clazz, fieldValueMap);
+    }
+
     public <T> T getById(Class<T> clazz, Serializable id) {
         return baseJpaDAO.getById(clazz, id);
     }
@@ -86,6 +96,14 @@ public class BaseJpaService {
 
     public <T> List<T> findSortByFieldValues(Class<T> clazz, Map<String, Object> fieldValueMap, Sorter sorter) {
         return baseJpaDAO.findPagerByFieldValues(clazz, fieldValueMap, null, sorter);
+    }
+
+    public <T> List<T> findByHQL(Class<T> clazz, String hql) {
+        return baseJpaDAO.findBySQL(clazz, hql, false);
+    }
+
+    public <T> List<T> findByNativeSQL(Class<T> clazz, String sql) {
+        return baseJpaDAO.findBySQL(clazz, sql, true);
     }
 
     // ========================================================================================
@@ -133,5 +151,15 @@ public class BaseJpaService {
         fieldValueMap.put(fieldName, fieldValue);
 
         return this.findSortByFieldValues(clazz, fieldValueMap, sorter);
+    }
+
+    public <T> T getByHQL(Class<T> clazz, String hql) {
+        List<T> resultList = this.findByHQL(clazz, hql);
+        return CollectionUtils.isEmpty(resultList) ? null : resultList.get(0);
+    }
+
+    public <T> T getByNativeSQL(Class<T> clazz, String sql) {
+        List<T> resultList = this.findByNativeSQL(clazz, sql);
+        return CollectionUtils.isEmpty(resultList) ? null : resultList.get(0);
     }
 }
