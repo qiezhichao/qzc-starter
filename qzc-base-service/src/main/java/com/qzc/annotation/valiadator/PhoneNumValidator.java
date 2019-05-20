@@ -1,7 +1,7 @@
-package com.qzc.valiadator;
+package com.qzc.annotation.valiadator;
 
 import com.qzc.annotation.ValidatePhoneNum;
-import com.qzc.util.BaseValidatorUtil;
+import com.qzc.util.BasePatternUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.ConstraintValidator;
@@ -20,21 +20,24 @@ public class PhoneNumValidator implements ConstraintValidator<ValidatePhoneNum, 
 
     private boolean required = false;
 
+    private String pattern = "";
+
     @Override
     public void initialize(ValidatePhoneNum validatePhoneNum) {
         required = validatePhoneNum.requried();
+        pattern = validatePhoneNum.pattern();
     }
 
     @Override
     public boolean isValid(String phoneNum, ConstraintValidatorContext constraintValidatorContext) {
         if (required) {
-            return BaseValidatorUtil.validatePhoneNum(phoneNum);
+            return BasePatternUtil.isMatch(pattern, phoneNum);
         } else {
             if (StringUtils.isEmpty(phoneNum)) {
                 return true;
             }
 
-            return BaseValidatorUtil.validatePhoneNum(phoneNum);
+            return BasePatternUtil.isMatch(pattern, phoneNum);
         }
     }
 }
