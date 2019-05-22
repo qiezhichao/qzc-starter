@@ -11,10 +11,10 @@ import java.util.List;
 
 public class BaseJOJoinJOUtil {
 
-    public <T, S extends BaseIdEntity> void jionById(List<T> targetList,
-                                                     String targetJoinFieldName,
-                                                     Class<S> sourceClazz,
-                                                     JoinPair... joinPairs) {
+    public static <T, S extends BaseIdEntity> void jionById(List<T> targetList,
+                                                            String targetJoinFieldName,
+                                                            Class<S> sourceClazz,
+                                                            JoinPair... joinPairs) {
         if (CollectionUtils.isEmpty(targetList)) {
             return;
         }
