@@ -32,6 +32,7 @@
     <qcloudsms.version>1.0.6</qcloudsms.version>
     <jjwt.version>0.9.1</jjwt.version>
     <java-jwt.version>3.4.0</java-jwt.version>
+    <jasypt.version>2.0.0</jasypt.version>
   </properties>
 
   <!-- =======================================必选依赖======================================= -->
@@ -67,6 +68,7 @@
       <artifactId>fastjson</artifactId>
       <version>${fastjson.version}</version>
     </dependency>
+
   </dependencies>
 
   <!-- =======================================可选依赖======================================= -->
@@ -109,6 +111,13 @@
         <groupId>com.auth0</groupId>
         <artifactId>java-jwt</artifactId>
         <version>${java-jwt.version}</version>
+      </dependency>
+
+      <!-- jasypt 数据库信息加密 -->
+      <dependency>
+        <groupId>com.github.ulisesbocchio</groupId>
+        <artifactId>jasypt-spring-boot-starter</artifactId>
+        <version>${jasypt.version}</version>
       </dependency>
 
     </dependencies>
