@@ -27,14 +27,22 @@ public class BaseCommonUtil {
         String ipAddress = null;
         try {
             ipAddress = request.getHeader("x-forwarded-for");
+            log.debug("x-forwarded-for:[{}]", ipAddress);
             if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
                 ipAddress = request.getHeader("Proxy-Client-IP");
+                log.debug("Proxy-Client-IP:[{}]", ipAddress);
             }
             if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
                 ipAddress = request.getHeader("WL-Proxy-Client-IP");
+                log.debug("WL-Proxy-Client-IP:[{}]", ipAddress);
+            }
+            if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+                ipAddress = request.getHeader("X-Real-IP");
+                log.debug("X-Real-IP:[{}]", ipAddress);
             }
             if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
                 ipAddress = request.getRemoteAddr();
+                log.debug("RemoteAddr:[{}]", ipAddress);
                 if (ipAddress.equals("127.0.0.1")) {
                     // 根据网卡取本机配置的IP
                     InetAddress inet = null;
@@ -44,7 +52,6 @@ public class BaseCommonUtil {
                     } catch (UnknownHostException e) {
                         e.printStackTrace();
                     }
-
                 }
             }
             // 对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割, "***.***.***.***".length() = 15

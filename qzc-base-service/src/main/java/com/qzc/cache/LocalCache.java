@@ -25,7 +25,7 @@ public class LocalCache {
             // 设置并发级别为8，并发级别是指可以同时写缓存的线程数
             .concurrencyLevel(8)
             // 如果缓存在120秒内没有更新，则失效
-            .expireAfterWrite(120, TimeUnit.SECONDS)
+            .expireAfterWrite(600, TimeUnit.SECONDS)
             // 设置缓存的移除通知
             .removalListener(new RemovalListener<Object, Object>() {
                 @Override
