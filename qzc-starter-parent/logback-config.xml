@@ -21,13 +21,13 @@
 
     <!-- RollingFileAppender：把日志输出到文件 -->
     <appender name="FILEOUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>x:\var\log.log</File>
+        <File>/var/log/qzc/log.log</File>
 
         <!-- rollingPolicy:当发生滚动时，决定 RollingFileAppender 的行为，涉及文件移动和重命名。 -->
         <!-- TimeBasedRollingPolicy： 最常用的滚动策略，它根据时间来制定滚动策略，既负责滚动也负责触发滚动 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 文件名：x:\var\log\%d\log-0.log -->
-            <fileNamePattern>x:\var\log\%d\log-%i.log</fileNamePattern>
+            <fileNamePattern>/var/log/qzc/log/%d/log-%i.log</fileNamePattern>
 
             <!-- 每产生一个日志文件，该日志文件的保存期限为30天 -->
             <maxHistory>30</maxHistory>
@@ -51,5 +51,6 @@
     <root level="info">
         <!-- 控制台输出日志级别 -->
         <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILEOUT" />
     </root>
 </configuration>
