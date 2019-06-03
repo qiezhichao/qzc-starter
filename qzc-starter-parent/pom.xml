@@ -33,6 +33,7 @@
     <jjwt.version>0.9.1</jjwt.version>
     <java-jwt.version>3.4.0</java-jwt.version>
     <jasypt.version>2.0.0</jasypt.version>
+    <cos_api.version>5.5.3</cos_api.version>
   </properties>
 
   <!-- =======================================必选依赖======================================= -->
@@ -99,6 +100,13 @@
         <groupId>com.github.qcloudsms</groupId>
         <artifactId>qcloudsms</artifactId>
         <version>${qcloudsms.version}</version>
+      </dependency>
+
+      <!-- 腾讯云cos存储服务 -->
+      <dependency>
+        <groupId>com.qcloud</groupId>
+        <artifactId>cos_api</artifactId>
+        <version>${cos_api.version}</version>
       </dependency>
 
       <!-- jwt -->

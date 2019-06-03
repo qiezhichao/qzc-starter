@@ -50,19 +50,22 @@
     <dependency>
       <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt</artifactId>
-      <version>${jjwt.version}</version>
     </dependency>
     <dependency>
       <groupId>com.auth0</groupId>
       <artifactId>java-jwt</artifactId>
-      <version>${java-jwt.version}</version>
     </dependency>
 
     <!-- 腾讯云短信服务 -->
     <dependency>
       <groupId>com.github.qcloudsms</groupId>
       <artifactId>qcloudsms</artifactId>
-      <version>${qcloudsms.version}</version>
+    </dependency>
+
+    <!-- 腾讯云cos存储服务 -->
+    <dependency>
+      <groupId>com.qcloud</groupId>
+      <artifactId>cos_api</artifactId>
     </dependency>
 
     <!-- jasypt 数据库信息加密 -->
