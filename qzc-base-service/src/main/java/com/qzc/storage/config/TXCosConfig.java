@@ -32,7 +32,7 @@ public class TXCosConfig {
     private String bucketName;
 
     @Value("${tx.cos.fileDuration:#{null}}")
-    private Long fileDuration; // 文件有效时间
+    private Long fileDuration; // 文件有效时间, 单位毫秒
 
     @Value("${tx.cos.fileMaxSize:#{null}}")
     private Long fileMaxSize; // 文件最大值

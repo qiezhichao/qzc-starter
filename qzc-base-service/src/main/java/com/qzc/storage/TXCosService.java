@@ -44,8 +44,7 @@ public class TXCosService {
      */
     public String uploadFile2Cos(MultipartFile file) {
         log.debug("enter uploadFile2Cos");
-
-
+        
         String originalFilename = file.getOriginalFilename();
         String substring = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase();
         String fileName = BaseUuidUtil.generateUuid() + System.currentTimeMillis() + substring;
@@ -65,10 +64,14 @@ public class TXCosService {
      * @CreateDate: 2019/6/3 21:10
      */
     public String getFileUrl(String fileName) {
-        // 设置URL过期时间为10年 3600l* 1000*24*365*10
-        Date expiration = new Date(System.currentTimeMillis() + 3600L * 1000 * 24 * 365 * 10);
+        // 设置URL过期时间
+        Date expiration = new Date(System.currentTimeMillis() + txCosConfig.getFileDuration());
+
+        COSClient cosClient = this.getCOSClient();
         // 生成URL
-        URL url = this.getCOSClient().generatePresignedUrl(txCosConfig.getBucketName(), fileName, expiration);
+        URL url = cosClient.generatePresignedUrl(txCosConfig.getBucketName(), fileName, expiration);
+
+        cosClient.shutdown();
         if (url != null) {
             return url.toString();
         }
@@ -133,7 +136,9 @@ public class TXCosService {
             objectMetadata.setContentType(this.getContentType(fileName.substring(fileName.lastIndexOf("."))));
             objectMetadata.setContentDisposition("inline;filename=" + fileName);
             // 上传文件
-            PutObjectResult putResult = this.getCOSClient().putObject(txCosConfig.getBucketName(), fileName, inputStream, objectMetadata);
+            COSClient cosClient = this.getCOSClient();
+            PutObjectResult putResult = cosClient.putObject(txCosConfig.getBucketName(), fileName, inputStream, objectMetadata);
+            cosClient.shutdown();
             log.debug("putResult=[{}]", putResult);
         } catch (IOException e) {
             log.error("腾讯云COS存储服务异常， 异常信息:{}", e.getMessage());
