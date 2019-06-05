@@ -16,6 +16,9 @@ import java.util.List;
 @Slf4j
 public class TXCosConfig {
 
+    @Value("${tx.cos.openFlag:#{null}}")
+    private String openFlag;
+
     @Value("${tx.secretId:#{null}}")
     private String secretId;
 
@@ -28,22 +31,29 @@ public class TXCosConfig {
     @Value("${tx.cos.bucketName:#{null}}")
     private String bucketName;
 
+    @Value("${tx.cos.fileDuration:#{null}}")
+    private Long fileDuration; // 文件有效时间
+
     @Value("${tx.cos.fileMaxSize:#{null}}")
-    private Long fileMaxSize;
+    private Long fileMaxSize; // 文件最大值
 
     @Value("${tx.cos.fileValidatePostfix:#{null}}")
-    private String fileValidatePostfix;
+    private String fileValidatePostfix; // 文件有效后缀名称，以","分割
 
     private List<String> fileValidatePostfixList;
 
     @PostConstruct
     public void init() {
-        this.check();
+
+        if (StringUtils.equals(this.getOpenFlag(), "true")){
+            this.check();
+        }
 
         String fileValidatePostfix = this.getFileValidatePostfix();
-        this.setFileValidatePostfixList(Arrays.asList(fileValidatePostfix.split(",")));
+        if (StringUtils.isNotBlank(fileValidatePostfix)) {
+            this.setFileValidatePostfixList(Arrays.asList(fileValidatePostfix.split(",")));
+        }
     }
-
 
     // ========================================
     private void check() {
@@ -51,7 +61,10 @@ public class TXCosConfig {
         if (StringUtils.isBlank(this.getSecretId())
                 || StringUtils.isBlank(this.getSecretKey())
                 || StringUtils.isBlank(this.getRegion())
-                || StringUtils.isBlank(this.getBucketName())) {
+                || StringUtils.isBlank(this.getBucketName())
+                || this.getFileDuration() == null
+                || this.getFileMaxSize() == null
+                || StringUtils.isBlank(this.getFileValidatePostfix())) {
 
             log.error("腾讯云cos存储配置校验失败");
             throw new ServiceException("腾讯云cos存储配置校验失败");
