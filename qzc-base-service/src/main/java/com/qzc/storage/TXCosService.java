@@ -11,6 +11,7 @@ import com.qzc.exception.ServiceException;
 import com.qzc.storage.config.TXCosConfig;
 import com.qzc.util.BaseUuidUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,7 +20,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
-import java.util.Random;
 
 /**
  * 腾讯cos服务
@@ -37,56 +37,25 @@ public class TXCosService {
     /**
      * 文件上传 同名文件进行覆盖
      *
-     * @param inputStream
-     *            文件流
-     * @param fileName
-     *            文件名称 包括后缀名
-     * @return 唯一MD5数字签名, 出错返回""
-     *
+     * @param file 待上传文件
+     * @return 服务器文件名
      * @Author: qiezhichao
      * @CreateDate: 2019/6/3 21:11
      */
-    public String uploadFile2Cos(InputStream inputStream, String fileName) {
-        String ret = "";
+    public String uploadFile2Cos(MultipartFile file) {
+        log.debug("enter uploadFile2Cos");
 
-        try {
-            // 创建上传Object的Metadata
-            ObjectMetadata objectMetadata = new ObjectMetadata();
-            objectMetadata.setContentLength(inputStream.available());
-            objectMetadata.setCacheControl("no-cache");
-            objectMetadata.setHeader("Pragma", "no-cache");
-            objectMetadata.setContentType(this.getContentType(fileName.substring(fileName.lastIndexOf("."))));
-            objectMetadata.setContentDisposition("inline;filename=" + fileName);
-            // 上传文件
-            PutObjectResult putResult = this.getCOSClient().putObject(txCosConfig.getBucketName(), fileName, inputStream, objectMetadata);
-            ret = putResult.getETag();
-        } catch (IOException e) {
-            log.error("腾讯云COS存储服务异常， 异常信息:{}", e.getMessage());
-            throw new ServiceException("腾讯云COS存储服务异常");
-        } finally {
-            try {
-                if (inputStream != null) {
-                    inputStream.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return ret;
-    }
-
-    public String uploadFile2Cos(MultipartFile file) throws Exception {
 
         String originalFilename = file.getOriginalFilename();
         String substring = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase();
-        String name = BaseUuidUtil.generateUuid() + System.currentTimeMillis() + substring;
+        String fileName = BaseUuidUtil.generateUuid() + System.currentTimeMillis() + substring;
+
         try {
-            InputStream inputStream = file.getInputStream();
-            this.uploadFile2Cos(inputStream, name);
-            return name;
-        } catch (Exception e) {
-            throw new Exception("图片上传失败");
+            this.uploadFile2Cos(file.getInputStream(), fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return fileName;
     }
 
     /**
@@ -95,11 +64,11 @@ public class TXCosService {
      * @Author: qiezhichao
      * @CreateDate: 2019/6/3 21:10
      */
-    public String getFileUrl(String key) {
+    public String getFileUrl(String fileName) {
         // 设置URL过期时间为10年 3600l* 1000*24*365*10
         Date expiration = new Date(System.currentTimeMillis() + 3600L * 1000 * 24 * 365 * 10);
         // 生成URL
-        URL url = this.getCOSClient().generatePresignedUrl(txCosConfig.getBucketName(), key, expiration);
+        URL url = this.getCOSClient().generatePresignedUrl(txCosConfig.getBucketName(), fileName, expiration);
         if (url != null) {
             return url.toString();
         }
@@ -115,6 +84,69 @@ public class TXCosService {
         COSCredentials cred = new BasicCOSCredentials(txCosConfig.getSecretId(), txCosConfig.getSecretKey());
         ClientConfig clientConfig = new ClientConfig(new Region(txCosConfig.getRegion()));
         return new COSClient(cred, clientConfig);
+    }
+
+    /*
+     *  校验文件
+     */
+    private void checkFile(MultipartFile file) {
+        if (txCosConfig.getFileMaxSize() != null
+                && file.getSize() > txCosConfig.getFileMaxSize()) {
+            log.error("文件大小不能大于[{}]", txCosConfig.getFileMaxSize());
+            throw new ServiceException("文件大小超过允许最大值");
+        }
+
+        if (CollectionUtils.isNotEmpty(txCosConfig.getFileValidatePostfixList())) {
+            boolean flag = false;
+
+            String filename = file.getOriginalFilename();
+            for (String fileValidatePostfix : txCosConfig.getFileValidatePostfixList()) {
+                if (filename.endsWith(fileValidatePostfix)) {
+                    flag = true;
+                    break;
+                }
+            }
+
+            if (!flag) {
+                log.error("当前文件后缀不支持上传");
+                throw new ServiceException("当前文件后缀不支持上传");
+            }
+        }
+    }
+
+    /*
+     * 文件上传 同名文件进行覆盖
+     *
+     * @param inputStream 文件流
+     * @param fileName    文件名称 包括后缀名
+     * @Author: qiezhichao
+     * @CreateDate: 2019/6/3 21:11
+     */
+    private void uploadFile2Cos(InputStream inputStream, String fileName) {
+
+        try {
+            // 创建上传Object的Metadata
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            objectMetadata.setContentLength(inputStream.available());
+            objectMetadata.setCacheControl("no-cache");
+            objectMetadata.setHeader("Pragma", "no-cache");
+            objectMetadata.setContentType(this.getContentType(fileName.substring(fileName.lastIndexOf("."))));
+            objectMetadata.setContentDisposition("inline;filename=" + fileName);
+            // 上传文件
+            PutObjectResult putResult = this.getCOSClient().putObject(txCosConfig.getBucketName(), fileName, inputStream, objectMetadata);
+            log.debug("putResult=[{}]", putResult);
+        } catch (IOException e) {
+            log.error("腾讯云COS存储服务异常， 异常信息:{}", e.getMessage());
+            throw new ServiceException("腾讯云COS存储服务异常");
+        } finally {
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /*

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Arrays;
+import java.util.List;
 
 @Data
 @Component
@@ -26,8 +28,25 @@ public class TXCosConfig {
     @Value("${tx.cos.bucketName:#{null}}")
     private String bucketName;
 
+    @Value("${tx.cos.fileMaxSize:#{null}}")
+    private Long fileMaxSize;
+
+    @Value("${tx.cos.fileValidatePostfix:#{null}}")
+    private String fileValidatePostfix;
+
+    private List<String> fileValidatePostfixList;
+
     @PostConstruct
-    public void check() {
+    public void init() {
+        this.check();
+
+        String fileValidatePostfix = this.getFileValidatePostfix();
+        this.setFileValidatePostfixList(Arrays.asList(fileValidatePostfix.split(",")));
+    }
+
+
+    // ========================================
+    private void check() {
         log.debug("begin to check TX cos config");
         if (StringUtils.isBlank(this.getSecretId())
                 || StringUtils.isBlank(this.getSecretKey())
