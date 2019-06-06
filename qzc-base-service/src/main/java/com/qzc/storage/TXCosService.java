@@ -44,7 +44,7 @@ public class TXCosService {
      */
     public String uploadFile2Cos(MultipartFile file) {
         log.debug("enter uploadFile2Cos");
-        
+
         String originalFilename = file.getOriginalFilename();
         String substring = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase();
         String fileName = BaseUuidUtil.generateUuid() + System.currentTimeMillis() + substring;

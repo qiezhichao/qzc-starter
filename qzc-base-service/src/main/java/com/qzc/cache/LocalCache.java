@@ -5,6 +5,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.RemovalListener;
 import com.google.common.cache.RemovalNotification;
 import com.qzc.cache.config.LocalCacheConfig;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,12 +15,14 @@ import java.util.concurrent.TimeUnit;
  * @Author: qiezhichao
  * @CreateDate: 2019/5/12 14:15
  */
+@Slf4j
 public class LocalCache {
 
     // CacheBuilder的构造函数是私有的，只能通过其静态方法newBuilder()来获得CacheBuilder的实例
     private static Cache<String, String> loadingCache;
 
     static {
+        log.debug("LocalCache builder");
         CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder()
                 // 设置要统计缓存的命中率
                 .recordStats()
