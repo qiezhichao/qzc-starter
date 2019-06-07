@@ -39,11 +39,6 @@ public class TXCaptchaService {
      */
     public TXCaptchaBean getVerifyTicketResult(String ticket, String rand, String userIp) {
 
-        if (!txCaptchaConfig.check()) {
-            log.error("腾讯防水墙配置校验失败");
-            throw new ServiceException("腾讯防水墙配置校验失败");
-        }
-
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpGet;
         CloseableHttpResponse response = null;

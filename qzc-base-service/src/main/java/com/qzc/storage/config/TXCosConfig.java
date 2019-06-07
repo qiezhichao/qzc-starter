@@ -16,8 +16,8 @@ import java.util.List;
 @Slf4j
 public class TXCosConfig {
 
-    @Value("${tx.cos.openFlag:#{null}}")
-    private String openFlag;
+    @Value("${tx.cos.open:#{null}}")
+    private String open;
 
     @Value("${tx.secretId:#{null}}")
     private String secretId;
@@ -45,7 +45,7 @@ public class TXCosConfig {
     @PostConstruct
     public void init() {
 
-        if (StringUtils.equals(this.getOpenFlag(), "true")){
+        if (StringUtils.equals(this.getOpen(), "true")) {
             this.check();
         }
 
@@ -68,6 +68,8 @@ public class TXCosConfig {
 
             log.error("腾讯云cos存储配置校验失败");
             throw new ServiceException("腾讯云cos存储配置校验失败");
+        } else {
+            log.debug("腾讯云cos存储配置校验成功");
         }
     }
 

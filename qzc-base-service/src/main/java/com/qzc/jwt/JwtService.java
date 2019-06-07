@@ -1,6 +1,5 @@
 package com.qzc.jwt;
 
-import com.qzc.exception.ServiceException;
 import com.qzc.jwt.config.JwtConfig;
 import com.qzc.util.BaseUuidUtil;
 import io.jsonwebtoken.Claims;
@@ -37,11 +36,6 @@ public class JwtService {
      * @CreateDate: 2019/5/12 13:36
      */
     public String createJwt(String subject, String key, Map<String, Object> claimMap) {
-
-        if (!jwtConfig.check()) {
-            log.error("jwt配置对象校验失败");
-            throw new ServiceException("jwt配置对象校验失败");
-        }
 
         // 使用Hs256算法
         SignatureAlgorithm sa = SignatureAlgorithm.HS256;

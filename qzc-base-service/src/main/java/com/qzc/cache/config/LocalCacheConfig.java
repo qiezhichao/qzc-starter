@@ -1,6 +1,7 @@
 package com.qzc.cache.config;
 
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +10,9 @@ import javax.annotation.PostConstruct;
 @Data
 @Component
 public class LocalCacheConfig {
+
+    @Value("${localCache.open:#{null}}")
+    private String open;
 
     @Value("${localCache.initialCapacity:#{null}}")
     private Integer initialCapacity;
@@ -22,6 +26,8 @@ public class LocalCacheConfig {
     @Value("${localCache.durationExpireAfterWrite:#{null}}")
     private Integer durationExpireAfterWrite;
 
+    private static boolean open_service = false;
+
     private static Integer initial_capacity;
 
     private static Integer maximum_size;
@@ -32,10 +38,20 @@ public class LocalCacheConfig {
 
     @PostConstruct
     public void setStaticValue() {
-        initial_capacity = this.getInitialCapacity();
-        maximum_size = this.getMaximumSize();
-        concurrency_level = this.getConcurrencyLevel();
-        duration_expire_after_write = this.getDurationExpireAfterWrite();
+        if (StringUtils.equals(this.getOpen(), "true")) {
+            open_service = true;
+        }
+
+        if (open_service){
+            initial_capacity = this.getInitialCapacity();
+            maximum_size = this.getMaximumSize();
+            concurrency_level = this.getConcurrencyLevel();
+            duration_expire_after_write = this.getDurationExpireAfterWrite();
+        }
+    }
+
+    public static boolean isOpen_service() {
+        return open_service;
     }
 
     public static Integer getInitial_capacity() {

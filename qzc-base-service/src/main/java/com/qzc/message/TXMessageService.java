@@ -31,11 +31,6 @@ public class TXMessageService {
         log.debug(">>> enter TXMessageService sendVerificationCode(phoneNum, verificationCode), phoneNum=[{}], verificationCode=[{}]",
                 phoneNum, verificationCode);
 
-        if (!txMessageConfig.check()) {
-            log.error("腾讯云短信配置校验失败");
-            throw new ServiceException("腾讯云短信配置校验失败");
-        }
-
         SmsSingleSenderResult result = null;
         try {
             String[] params = {verificationCode};
