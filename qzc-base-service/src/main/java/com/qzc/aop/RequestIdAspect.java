@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
- * Controller请求id切面类
+ * 请求id切面类
  *
  * @Author: qiezhichao
  * @CreateDate: 2019/5/15 19:57
@@ -22,7 +22,7 @@ import java.util.Map;
 @Aspect
 @Component
 @Slf4j
-public class ControllerRequestIdAspect {
+public class RequestIdAspect {
 
     // 横切点，哪些方法需要被横切
     @Pointcut("execution(public * com..*.*Controller.*(..))")
