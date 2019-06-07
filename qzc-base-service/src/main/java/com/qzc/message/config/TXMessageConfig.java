@@ -13,6 +13,21 @@ import javax.annotation.PostConstruct;
 @Data
 @Component
 @Slf4j
+
+/**
+ * tx:
+ *   ##腾讯云短信服务配置
+ *   message:
+ *     ##是否启用服务
+ *     open: true
+ *     appId: XXXX
+ *     appKey: XXXX
+ *     templateId: XXXX
+ *     smsSign: XXXX
+ *     #手机号的区域码,中国为86
+ *     nationCode: 86
+ */
+
 public class TXMessageConfig {
 
     @Value("${tx.message.open:#{null}}")

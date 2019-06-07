@@ -15,6 +15,13 @@ import javax.annotation.PostConstruct;
 @Slf4j
 //@ConfigurationProperties(prefix = "jwt")
 //@Validated
+/**
+ *  jwt:
+ *    ##是否启用服务
+ *    open: true
+ *    #jwt过期时间，单位,秒
+ *    expireSecond: 3600
+ */
 public class JwtConfig {
 
     @Value("${jwt.open:#{null}}")

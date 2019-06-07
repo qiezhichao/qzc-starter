@@ -1,6 +1,7 @@
 package com.qzc.cache.config;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -9,6 +10,18 @@ import javax.annotation.PostConstruct;
 
 @Data
 @Component
+@Slf4j
+/**
+ *  localCache:
+ *    ##是否启用服务
+ *    open: true
+ *    #设置缓存容器的初始容量, 默认为100
+ *    initialCapacity: 300
+ *    #设置缓存容器的并发级别, 默认为8(并发级别是指可以同时写缓存的线程数)
+ *    concurrencyLevel: 8
+ *    #设置缓存容器的过期更新时间，默认为300秒(如果缓存在300秒内没有更新，则失效)
+ *    durationExpireAfterWrite: 100000
+ */
 public class LocalCacheConfig {
 
     @Value("${localCache.open:#{null}}")

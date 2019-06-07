@@ -13,6 +13,15 @@ import javax.annotation.PostConstruct;
 @Data
 @Component
 @Slf4j
+/**
+ * tx:
+ *   captcha:
+ *     ##是否启用服务
+ *     open: true
+ *     appId: XXXX
+ *     appSecretKey: XXXX
+ *     verifyUri: https://ssl.captcha.qq.com/ticket/verify
+ */
 public class TXCaptchaConfig {
 
     @Value("${tx.captcha.open:#{null}}")
