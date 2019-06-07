@@ -20,7 +20,11 @@ public class BaseNumberUtil {
      * @Author: qiezhichao
      * @CreateDate: 2019/5/11 16:08
      */
-    public static String convertNum2Str(long number) {
+    public static String convertNum2Str(Long number) {
+        if (number == null) {
+            return null;
+        }
+
         if (number > 100000000) {
             double value = number / 100000000.0;
 
@@ -70,7 +74,7 @@ public class BaseNumberUtil {
      * @Author: qiezhichao
      * @CreateDate: 2019/5/12 13:04
      */
-    public static String genter6RandomNumStr() {
+    public static String genenerate6RandomNumStr() {
         return String.valueOf(new Random().nextInt(899999) + 100000);
     }
 
