@@ -1,6 +1,7 @@
 package com.qzc.message.config;
 
 import com.qzc.exception.ServiceException;
+import com.qzc.pojo.ApplicationCheckConfig;
 import com.qzc.util.BaseValidatorUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,7 @@ import javax.annotation.PostConstruct;
  *     nationCode: 86
  */
 
-public class TXMessageConfig {
+public class TXMessageConfig extends ApplicationCheckConfig {
 
     @Value("${tx.message.open:#{null}}")
     private String open;
@@ -51,6 +52,7 @@ public class TXMessageConfig {
     @PostConstruct
     public void init() {
         if (StringUtils.equals(this.getOpen(), "true")) {
+            super.setOpen(true);
             this.check();
         }
     }

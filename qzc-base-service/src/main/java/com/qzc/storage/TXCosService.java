@@ -7,6 +7,7 @@ import com.qcloud.cos.auth.COSCredentials;
 import com.qcloud.cos.model.ObjectMetadata;
 import com.qcloud.cos.model.PutObjectResult;
 import com.qcloud.cos.region.Region;
+import com.qzc.annotation.ApplicationConfigCheck;
 import com.qzc.exception.ServiceException;
 import com.qzc.storage.config.TXCosConfig;
 import com.qzc.util.BaseUuidUtil;
@@ -29,6 +30,7 @@ import java.util.Date;
  */
 @Service
 @Slf4j
+@ApplicationConfigCheck(configClass = TXCosConfig.class, configServiceName = "腾讯cos服务")
 public class TXCosService {
 
     @Autowired

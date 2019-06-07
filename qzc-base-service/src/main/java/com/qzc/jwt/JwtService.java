@@ -1,5 +1,6 @@
 package com.qzc.jwt;
 
+import com.qzc.annotation.ApplicationConfigCheck;
 import com.qzc.jwt.config.JwtConfig;
 import com.qzc.util.BaseUuidUtil;
 import io.jsonwebtoken.Claims;
@@ -21,6 +22,7 @@ import java.util.Map;
  */
 @Service
 @Slf4j
+@ApplicationConfigCheck(configClass = JwtConfig.class, configServiceName = "Jwt服务")
 public class JwtService {
 
     @Autowired

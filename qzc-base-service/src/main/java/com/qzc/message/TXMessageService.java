@@ -2,6 +2,7 @@ package com.qzc.message;
 
 import com.github.qcloudsms.SmsSingleSender;
 import com.github.qcloudsms.SmsSingleSenderResult;
+import com.qzc.annotation.ApplicationConfigCheck;
 import com.qzc.exception.ServiceException;
 import com.qzc.message.config.TXMessageConfig;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
+@ApplicationConfigCheck(configClass = TXMessageConfig.class, configServiceName = "腾讯云短信服务")
 public class TXMessageService {
 
     @Autowired

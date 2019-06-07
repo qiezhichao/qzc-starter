@@ -2,9 +2,11 @@ package com.qzc.captcha;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.qzc.annotation.ApplicationConfigCheck;
 import com.qzc.captcha.config.TXCaptchaConfig;
 import com.qzc.captcha.pojo.TXCaptchaBean;
 import com.qzc.exception.ServiceException;
+import com.qzc.pojo.ApplicationCheckConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -26,6 +28,7 @@ import java.net.URLEncoder;
  */
 @Service
 @Slf4j
+@ApplicationConfigCheck(configClass = TXCaptchaConfig.class, configServiceName = "腾讯防水墙服务")
 public class TXCaptchaService {
 
     @Autowired

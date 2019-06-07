@@ -1,5 +1,6 @@
 package com.qzc.cache.config;
 
+import com.qzc.pojo.ApplicationCheckConfig;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -22,7 +23,7 @@ import javax.annotation.PostConstruct;
  *    #设置缓存容器的过期更新时间，默认为300秒(如果缓存在300秒内没有更新，则失效)
  *    durationExpireAfterWrite: 100000
  */
-public class LocalCacheConfig {
+public class LocalCacheConfig extends ApplicationCheckConfig {
 
     @Value("${localCache.open:#{null}}")
     private String open;
@@ -50,8 +51,9 @@ public class LocalCacheConfig {
     private static Integer duration_expire_after_write;
 
     @PostConstruct
-    public void setStaticValue() {
+    public void init() {
         if (StringUtils.equals(this.getOpen(), "true")) {
+            super.setOpen(true);
             open_service = true;
         }
 

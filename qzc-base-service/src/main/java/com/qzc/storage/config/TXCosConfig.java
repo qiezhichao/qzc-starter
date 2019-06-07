@@ -1,6 +1,7 @@
 package com.qzc.storage.config;
 
 import com.qzc.exception.ServiceException;
+import com.qzc.pojo.ApplicationCheckConfig;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -14,7 +15,7 @@ import java.util.List;
 @Data
 @Component
 @Slf4j
-public class TXCosConfig {
+public class TXCosConfig extends ApplicationCheckConfig {
 
     @Value("${tx.cos.open:#{null}}")
     private String open;
@@ -46,6 +47,7 @@ public class TXCosConfig {
     public void init() {
 
         if (StringUtils.equals(this.getOpen(), "true")) {
+            super.setOpen(true);
             this.check();
         }
 

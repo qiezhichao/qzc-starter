@@ -1,6 +1,7 @@
 package com.qzc.jwt.config;
 
 import com.qzc.exception.ServiceException;
+import com.qzc.pojo.ApplicationCheckConfig;
 import com.qzc.util.BaseValidatorUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,7 @@ import javax.annotation.PostConstruct;
  *    #jwt过期时间，单位,秒
  *    expireSecond: 3600
  */
-public class JwtConfig {
+public class JwtConfig extends ApplicationCheckConfig {
 
     @Value("${jwt.open:#{null}}")
     private String open;
@@ -34,6 +35,7 @@ public class JwtConfig {
     @PostConstruct
     public void init() {
         if (StringUtils.equals(this.getOpen(), "true")) {
+            super.setOpen(true);
             this.check();
         }
     }
