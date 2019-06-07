@@ -51,10 +51,11 @@ public class TXCosService {
 
         try {
             this.uploadFile2Cos(file.getInputStream(), fileName);
+            return fileName;
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("uploadFile2Cos exception: ", e);
+            throw new ServiceException("文件上传出错");
         }
-        return fileName;
     }
 
     /**
@@ -141,7 +142,7 @@ public class TXCosService {
             cosClient.shutdown();
             log.debug("putResult=[{}]", putResult);
         } catch (IOException e) {
-            log.error("腾讯云COS存储服务异常， 异常信息:{}", e.getMessage());
+            log.error("腾讯云COS存储服务异常， 异常信息", e);
             throw new ServiceException("腾讯云COS存储服务异常");
         } finally {
             try {

@@ -83,14 +83,14 @@ public class TXCaptchaService {
                 return txCaptchaBean;
             }
         } catch (Exception e) {
-            log.error("腾讯防水墙服务异常，异常信息：{}", e.getMessage());
+            log.error("腾讯防水墙服务异常，异常信息:", e);
             throw new ServiceException("腾讯防水墙服务异常");
         } finally {
             if (response != null) {
                 try {
                     response.close();
                 } catch (IOException e) {
-                    log.error(e.getMessage());
+                    log.error("response.close exception:", e);
                 }
             }
         }

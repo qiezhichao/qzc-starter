@@ -39,7 +39,7 @@ public class ControllerRequestIdAspect {
             Response response = (Response) result;
             response.setRequestId(requestId);
         } catch (Exception e) {
-            log.error("AOP after printLog error!");
+            log.error("AOP after printLog error!", e);
         }
     }
 }

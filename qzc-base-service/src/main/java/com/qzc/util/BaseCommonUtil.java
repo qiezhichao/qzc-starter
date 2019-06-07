@@ -50,7 +50,8 @@ public class BaseCommonUtil {
                         inet = InetAddress.getLocalHost();
                         ipAddress = inet.getHostAddress();
                     } catch (UnknownHostException e) {
-                        e.printStackTrace();
+                        log.error("getIpAddr exception: ", e);
+                        throw new ServiceException("无法解析主机地址");
                     }
                 }
             }
@@ -62,7 +63,7 @@ public class BaseCommonUtil {
                 }
             }
         } catch (Exception e) {
-            log.error("获取用户ip地址异常, {}", e.getMessage());
+            log.error("获取用户ip地址异常", e);
             throw new ServiceException("获取用户ip地址异常");
         }
 

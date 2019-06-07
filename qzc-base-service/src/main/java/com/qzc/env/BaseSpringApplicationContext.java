@@ -54,8 +54,7 @@ public class BaseSpringApplicationContext implements ServletContextListener, App
         try {
             clazz = (Class<T>) Class.forName(className);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            log.error("class [{}] not found", className);
+            log.error("class [{}] not found, exception: ", className, e);
         }
 
         return applicationContext.getBean(clazz);

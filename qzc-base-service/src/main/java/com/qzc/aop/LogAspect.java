@@ -52,7 +52,7 @@ public class LogAspect {
             }
             log.debug(sb.toString());
         } catch (Exception e) {
-            log.error("AOP before printLog error!");
+            log.error("AOP before printLog error!", e);
         }
     }
 
@@ -82,7 +82,7 @@ public class LogAspect {
             sb.append(")");
             log.debug(sb.toString());
         } catch (Exception e) {
-            log.error("AOP after printLog error!");
+            log.error("AOP after printLog error!", e);
         }
     }
 }

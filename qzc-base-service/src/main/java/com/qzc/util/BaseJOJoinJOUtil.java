@@ -4,14 +4,16 @@ import com.google.common.collect.Lists;
 import com.qzc.db.service.BaseJpaService;
 import com.qzc.env.BaseSpringApplicationContext;
 import com.qzc.pojo.BaseIdEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
+@Slf4j
 public class BaseJOJoinJOUtil {
 
-    public static <T, S extends BaseIdEntity> void jionById(List<T> targetList,
+    public static <T, S extends BaseIdEntity> void joinById(List<T> targetList,
                                                             String targetJoinFieldName,
                                                             Class<S> sourceClazz,
                                                             JoinPair... joinPairs) {
@@ -76,7 +78,7 @@ public class BaseJOJoinJOUtil {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("joinById exception: ", e);
         }
     }
 

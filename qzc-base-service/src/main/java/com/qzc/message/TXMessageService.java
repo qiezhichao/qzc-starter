@@ -48,7 +48,7 @@ public class TXMessageService {
                     "",
                     "");
         } catch (Exception e) {
-            log.error("调用腾讯云短信服务异常，异常信息：{}", e.getMessage());
+            log.error("调用腾讯云短信服务异常，异常信息", e);
             throw new ServiceException("调用腾讯云短信服务异常");
         }
 
