@@ -5,4 +5,4 @@ mvn archetype:generate -DgroupId=com.qzc -DartifactId=qzc-base-service -Darchety
 mvn archetype:generate -DgroupId=com.qzc -DartifactId=qzc-base-service -DarchetypeArtifactId=maven-archetype-webapp
 
 maven打包跳过测试
--Dmaven.test.skip=true
+-Dmaven.com.qzc.ag.test.skip=true

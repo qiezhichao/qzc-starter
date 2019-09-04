@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd  
+       http://www.springframework.org/schema/context  
+       http://www.springframework.org/schema/context/spring-context.xsd">
+  
+    <!-- 开启注解,启用spring mvc的注解@Autowired,@Resource,@Required等 -->  
+    <!--<context:annotation-config/>-->  
+  
+    <!-- 自动扫描，可忽略<context:annotation-config/> -->  
+    <context:component-scan base-package="com.qzc.ag.test"/>
+
+</beans>  

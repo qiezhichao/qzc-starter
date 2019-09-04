@@ -34,6 +34,7 @@
     <java-jwt.version>3.4.0</java-jwt.version>
     <jasypt.version>2.0.0</jasypt.version>
     <cos_api.version>5.5.3</cos_api.version>
+    <jcraft.version>0.1.54</jcraft.version>
   </properties>
 
   <!-- =======================================必选依赖======================================= -->
@@ -132,6 +133,13 @@
         <groupId>com.github.ulisesbocchio</groupId>
         <artifactId>jasypt-spring-boot-starter</artifactId>
         <version>${jasypt.version}</version>
+      </dependency>
+
+      <!-- sftp处理 -->
+      <dependency>
+        <groupId>com.jcraft</groupId>
+        <artifactId>jsch</artifactId>
+        <version>${jcraft.version}</version>
       </dependency>
 
     </dependencies>
