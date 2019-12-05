@@ -5,13 +5,13 @@
   <groupId>com.qzc</groupId>
   <artifactId>qzc-starter-parent</artifactId>
   <packaging>pom</packaging>
-  <version>1.1.0-SNAPSHOT</version>
+  <version>2.1.0-SNAPSHOT</version>
   <name>qzc-starter-parent</name>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.5.20.RELEASE</version>
+    <version>2.1.10.RELEASE</version>
   </parent>
 
   <properties>
@@ -27,6 +27,7 @@
     <fastjson.version>1.2.47</fastjson.version>
 
     <!-- 可选选依赖 -->
+    <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
     <swagger.version>2.5.0</swagger.version>
     <druid.version>1.1.0</druid.version>
     <qcloudsms.version>1.0.6</qcloudsms.version>
@@ -76,6 +77,14 @@
   <!-- =======================================可选依赖======================================= -->
   <dependencyManagement>
     <dependencies>
+      <!-- spring cloud -->
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${spring-cloud.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
 
       <!-- 数据源 druid -->
       <dependency>
